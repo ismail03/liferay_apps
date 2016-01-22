@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="$root_css_class" >
+<head>
+
+
+		<title>$the_title -Square Today</title>
+	<!-- 	<meta charset="utf-8"> -->
+		<!--	<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+$theme.include($top_head_include)
+		
+		
+		<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Montserrat:400,700' rel='stylesheet' type='text/css' />
+
+
+			<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+			<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+			<!--[if lt IE 9] -- >
+		<!-- 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> -->
+		<!-- 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> -->
+			<!-- [endif] -->
+			
+	<script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script> 
+	 <script type="text/javascript"  src="$javascript_folder/build/global.min.js"></script>  
+	 <script type="text/javascript"  src="$javascript_folder/custom-script.js"></script> 
+   <script type="text/javascript"  src="$javascript_folder/lib/validate.js"></script> 
+	 
+</head>
+
+
+<body class="$css_class">
+#set ($param = $request.getParameter('_loanjourneycontroller_WAR_squareloansportlet_id')) 
+
+$theme.include($body_top_include)
+
+		
+
+ #if($param=="getstarted")
+ <div  id="main-wrapper" class="application-section sub-page-wrapper">
+		       <header>
+		    
+    <div class="container">
+        <div class="logo fL">
+            <a href="$site_default_url"><img src="$site_logo" alt="$images_folder/logo.png" /></a>
+        </div>
+        <div class="call-us fR">
+            <div>
+                <i class="fa fa-phone"></i>
+                <span>Talk to us</span>
+                0800 765 432
+            </div>
+        </div>
+    </div>
+    <div class="sign-in-link">
+        <a href="#"><span>sign in</span></a>
+    </div>
+   
+</header>
+		     		  
+		     		  
+ #else
+<div  id="main-wrapper">
+		<header>
+		
+		    <div class="container">
+		        <div class="logo fL">
+		            <a href="$site_default_url"><img src="$site_logo" alt="$images_folder/logo.png" /></a>
+		        </div>
+		        <div id="mobile-trigger">
+		            <span> <!-- dash --> </span>
+		            <span> <!-- dash --> </span>
+		            <span> <!-- dash --> </span>
+		        </div>
+		        
+		       
+		        #if ($has_navigation || $is_signed_in)
+		       		
+						#parse ("$full_templates_path/navigation.vm")
+					 
+				#end
+		        
+		        
+		     
+		    </div>
+		    <div class="sign-in-link">
+		        <a href="#"><span>sign in
+		       
+		        </span></a>
+		    </div>
+		       
+		</header>
+		
+		#end
+				    #if ($is_signed_in && $permissionChecker.isOmniadmin())
+						#dockbar()
+					#end
+					
+			
+					#if ($selectable)
+						$theme.include($content_include)
+					#else
+						$portletDisplay.recycle()
+			
+						$portletDisplay.setTitle($the_title)
+			
+						$theme.wrapPortlet("portlet.vm", $content_include)
+					#end
+				
+
+		<footer>
+				    <div class="container">
+				        <div class="fR">
+				            <ul class="footerLink clearfix">
+				                <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+				                <li><a href="#" title="Privacy Policy">Privacy Policy</a></li>
+				            </ul>
+				        </div>
+				        <div class="fL copyRights">
+				            &copy; 2015 Square Today. All Rights Reserved.
+				        </div>
+				    </div>
+	   </footer>
+			
+			
+</div>
+   $theme.include($body_bottom_include)
+ $theme.include($bottom_include)
+	
+   
+   
+</body>
+
+
+ 
+</html>

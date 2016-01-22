@@ -1,0 +1,25 @@
+<nav class="fL">
+	<ul class="clearfix">
+		#foreach ($nav_item in $nav_items)
+			
+
+			<li>
+				<a  href="$nav_item.getURL()" title="$nav_item.getName()"> $nav_item.getName() </a>
+
+				#if ($nav_item.hasChildren())
+					<ul>
+						#foreach ($nav_child in $nav_item.getChildren())
+							<li>
+								<a  href="$nav_child.getURL()" > $nav_child.getName() </a>
+							</li>
+						
+						#end
+					</ul>
+				#end
+			</li>
+		#end
+		 <li class="sign-in-mobile-link"><a href="#" title="Help">sign in</a></li>
+	</ul>
+</nav>
+
+  
