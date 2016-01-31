@@ -1,2 +1,2 @@
-# liferay_theme
-liferay theme
+liferay code base  
+
