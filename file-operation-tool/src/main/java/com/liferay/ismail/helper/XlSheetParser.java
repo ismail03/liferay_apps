@@ -2,7 +2,9 @@ package com.liferay.ismail.helper;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,8 +15,8 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
 public class XlSheetParser {
-	public static File parseXlSheet(File file) {
-
+	public static Map<String,String> parseXlSheet(File file) {
+Map<String,String> map = new HashMap<String, String>();
 		try {
 			FileInputStream isfile = new FileInputStream(file);
 			// Create Workbook instance holding reference to .xlsx file
@@ -22,6 +24,7 @@ public class XlSheetParser {
 			// Get first/desired sheet from the workbook
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			String key = StringPool.BLANK;
+			String value = StringPool.BLANK;
 			// Iterate through each rows one by one
 			Iterator<Row> rowIterator = sheet.iterator();
 			while (rowIterator.hasNext()) {
@@ -59,16 +62,18 @@ public class XlSheetParser {
 						}
 						break;
 					case 4:
-						System.out.print("value==" + cell.getStringCellValue());
+						value = cell.getStringCellValue().trim();
+						System.out.print("value==" + cell.getStringCellValue().trim());
 						break;
 					}
 				}
+				map.put(key, value);
 				System.out.println("");
 			}
 			isfile.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-return null;
+return map;
 	}
 }
