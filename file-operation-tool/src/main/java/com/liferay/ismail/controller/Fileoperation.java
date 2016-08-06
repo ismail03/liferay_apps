@@ -15,7 +15,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
  * Portlet implementation class Fileoperation
  */
 public class Fileoperation extends MVCPortlet {
-
+// ismail
 	private final static String fileInputName = "fileupload";
 
 	public void upload(ActionRequest request, ActionResponse response)
