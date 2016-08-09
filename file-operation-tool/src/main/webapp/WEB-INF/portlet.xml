@@ -5,7 +5,7 @@
 	<portlet>
 		<portlet-name>fileoperation</portlet-name>
 		<display-name>Fileoperation</display-name>
-		<portlet-class>com.liferay.utility.controller.Fileoperation</portlet-class>
+		<portlet-class>com.liferay.ismail.controller.Fileoperation</portlet-class>
 		<init-param>
 			<name>view-template</name>
 			<value>/html/fileoperation/view.jsp</value>

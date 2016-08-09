@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,8 +16,8 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
 public class XlSheetParser {
-	public static Map<String,String> parseXlSheet(File file) {
-Map<String,String> map = new HashMap<String, String>();
+	public static Map<String,String> parseXlSheet(File file, int keyindex,  int valueindex) {
+Map<String,String> map = new TreeMap<String, String>();
 		try {
 			FileInputStream isfile = new FileInputStream(file);
 			// Create Workbook instance holding reference to .xlsx file
@@ -39,12 +40,15 @@ Map<String,String> map = new HashMap<String, String>();
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					// Check the cell type and format accordingly
-
-					switch (cell.getColumnIndex()) {
-					case 2:
+					/*System.out.println("Breaking"+cell.getCellType()+Cell.CELL_TYPE_STRING);*/
+					
+					int columnIndex = cell.getColumnIndex();
+					if (columnIndex == keyindex) {
 						if (Validator.isNotNull(cell)
 								&& Validator.isNotNull(cell
 										.getStringCellValue())) {
+							
+							
 							if (cell.getStringCellValue().trim().contains("=")) {
 								key = cell
 										.getStringCellValue()
@@ -57,18 +61,16 @@ Map<String,String> map = new HashMap<String, String>();
 							} else {
 								key = cell.getStringCellValue().trim();
 							}
-							System.out.print("key is =" + key + "  ");
+							/*System.out.print(key + "=");*/
 
 						}
-						break;
-					case 4:
+					} else if (columnIndex == valueindex) {
 						value = cell.getStringCellValue().trim();
-						System.out.print("value==" + cell.getStringCellValue().trim());
-						break;
 					}
 				}
+				if(Validator.isNotNull(key) && !key.trim().equals(""))
 				map.put(key, value);
-				System.out.println("");
+				/*System.out.println("");*/
 			}
 			isfile.close();
 		} catch (Exception e) {
